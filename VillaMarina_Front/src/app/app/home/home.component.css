@@ -1,0 +1,59 @@
+.ImgSlider {
+  background-color: black;
+  width: 100%;
+  height: 600px;
+  margin: 0;
+}
+.ImgSlider img {
+  width: max-content;
+  height: 600px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  object-fit: cover;
+  padding: 0;
+}
+.ImgSlider span {
+  color: white;
+  height: 100%;
+  text-align: center;
+  z-index: 0;
+  padding: 0;
+}
+.ButtonSlider i {
+  height: 600px;
+  font-size: 25pt;
+  position: absolute;
+  text-align: center;
+  color: white;
+  -webkit-writing-mode: vertical-lr;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.ButtonSlider i:hover {
+  cursor: pointer;
+}
+.ImgFoot img {
+  width: auto;
+  height: 250px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.ImgFoot span {
+  font-size: 14pt;
+  font-weight: 700;
+}
+.iconoLetra {
+  width: 15px;
+  height: 15px;
+}
+.imagendetalle {
+  padding: 0;
+}
+.imagendetalle img {
+  padding: 0;
+  margin: 0;
+}

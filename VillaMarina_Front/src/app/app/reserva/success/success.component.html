@@ -1,0 +1,30 @@
+<div class="col" style="text-align: center" *ngIf="!loading">
+  <ng-container *ngIf="payStatus.mensaje === 'realizado!'">
+    <i class="bi bi-check-all" style="color: green; font-size: 100pt"></i>
+    <br />
+  </ng-container>
+  <ng-container *ngIf="payStatus.mensaje === 'erronea!'">
+    <i class="bi bi-x" style="color: red; font-size: 100pt"></i> <br />
+  </ng-container>
+  <strong>Pago {{ payStatus.mensaje }} <br /></strong>
+  <ng-container *ngIf="payStatus.mensaje === 'realizado!' && payStatus.Url">
+    <strong>Nombre:</strong> {{ payStatus.name }} <br />
+    <strong>Correo electrónico:</strong> {{ payStatus.email }} <br />
+    <strong>Telefono de contacto:</strong> {{ payStatus.phone }} <br />
+    <strong>Importe total pagado:</strong> {{ payStatus.importe | number:"0.2-2" }} € <br />
+    <strong>Número de pedido:</strong> {{ payStatus.Url }} <br />
+    <strong>Fecha reservada:</strong>
+    {{ ("00" + initialDay.getDate()).slice(-2) }}/{{
+    ("00" + initialDay.getMonth()).slice(-2)
+    }}/{{ initialDay.getFullYear() }}
+    a
+    {{ ("00" + finalDay.getDate()).slice(-2) }}/{{
+    ("00" + finalDay.getMonth()).slice(-2)
+    }}/{{ finalDay.getFullYear() }}
+    <br />
+  </ng-container>
+  <br />
+  <a href="https://stripe.com/">
+    <img style="width: 15%" src="./assets/Imagen/stripe/powered.png" />
+  </a>
+</div>

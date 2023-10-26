@@ -1,0 +1,52 @@
+<div class="row ImgSlider" style="margin: 0">
+  <img src="./assets/Imagen/Cabecera/Foto1.jpg" *ngIf="pictureSlider === 0" [@slideInOut] style="padding: 0" />
+  <img src="./assets/Imagen/Cabecera/Foto2.png" *ngIf="pictureSlider === 1" [@slideInOut] />
+  <div class="ButtonSlider" style="z-index: 50">
+    <i class="bi bi-arrow-right" style="right: 0%" (click)="
+        pictureSlider =
+          pictureSlider === 0 ? pictureNum - 1 : pictureSlider - 1;
+        Dir = true
+      "></i>
+  </div>
+  <span>
+    <br><br>
+    <span style="font-size: 50pt"> Villa marina </span>
+    <br />
+    a 20 metros del mar
+    <br />
+    con piscina privada
+  </span>
+</div>
+<div class="container" style="text-align: end; width: 100%">
+  <span> Número de registro: HUTTE-000917 </span>
+</div>
+<div class="container" style="text-align: end; width: 100%">
+  <img class="iconoLetra" src="./assets/Icono/1-simbol.jpg" />
+  <img class="iconoLetra" src="./assets/Icono/2-simbol.jpg" />
+  <img class="iconoLetra" src="./assets/Icono/3-simbol.jpg" />
+  <img class="iconoLetra" src="./assets/Icono/4-simbol.jpg" />
+</div>
+<div class="container">
+  <div class="row ImgFoot text-center">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 imagendetalle">
+      <div class="row">
+        <img src="./assets/Imagen/CASA.png" />
+      </div>
+      <div class="row">
+        <span> LA CASA </span>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 imagendetalle">
+      <div class="row">
+        <img src="./assets/Imagen/DISPONIBILIDAD.png" />
+      </div>
+      <div class="row"><span> DISPONIBILIDAD </span></div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 imagendetalle">
+      <div class="row">
+        <img src="./assets/Imagen/UBICACION.png" />
+      </div>
+      <div class="row"><span> UBICACIÓN </span></div>
+    </div>
+  </div>
+</div>

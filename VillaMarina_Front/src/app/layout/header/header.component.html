@@ -1,0 +1,85 @@
+<div class="container text-center">
+  <div class="row contacto">
+    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+      <a href="+34 600 000 000">
+        <i class="bi bi-telephone"></i> +34 600 000 000
+      </a>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+      <a href="https://api.whatsapp.com/send?phone=34600000000">
+        <i class="bi bi-whatsapp"> +34 600 000 000 </i></a>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+      <a href="mailto:villamarina@lampolla.net">
+        <i class="bi bi-envelope"></i> villamarina@lampolla.net
+      </a>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 15px">
+    <h1>
+      <img class="iconoLetra" src="./assets/Icono/4-simbol.jpg" />
+      Villa Marina
+      <img class="iconoLetra" src="./assets/Icono/3-simbol.jpg" />
+    </h1>
+  </div>
+  <div class="row header" style="
+      padding: 5px;
+      margin: 10px;
+      box-shadow: 0 0 8px blue;
+      border: 1px solid #fff;
+      border-radius: 15px;
+    ">
+    <div class="col-xs-4 col-sm-4 col-md col-lg">
+      <a type="button" routerLink="Home" [style.color]="router.url === '/Home' ? 'red' : ''">LA CASA<mat-icon
+          style="font-size: 16pt; height: 15px; width: 18px">
+          {{
+          router.url === "/Home" ? "keyboard_arrow_down" : "keyboard_arrow_up"
+          }}
+        </mat-icon>
+      </a>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md col-lg">
+      <a type="button" routerLink="Descripcion"
+        [style.color]="router.url === '/Descripcion' ? 'red' : ''">ENTORNO<mat-icon
+          style="font-size: 16pt; height: 15px; width: 18px">
+          {{
+          router.url === "/Descripcion"
+          ? "keyboard_arrow_down"
+          : "keyboard_arrow_up"
+          }}
+        </mat-icon></a>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md col-lg">
+      <a type="button" routerLink="Reserva" [style.color]="router.url === '/Reserva' ? 'red' : ''">RESERVA<mat-icon
+          style="font-size: 16pt; height: 15px; width: 18px">
+          {{
+          router.url === "/Reserva"
+          ? "keyboard_arrow_down"
+          : "keyboard_arrow_up"
+          }}
+        </mat-icon></a>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md col-lg">
+      <a type="button" routerLink="Condicion"
+        [style.color]="router.url === '/Condicion' ? 'red' : ''">CONDICION<mat-icon
+          style="font-size: 16pt; height: 15px; width: 18px">
+          {{
+          router.url === "/Condicion"
+          ? "keyboard_arrow_down"
+          : "keyboard_arrow_up"
+          }}
+        </mat-icon>
+      </a>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md col-lg">
+      <a type="button" routerLink="Contacto" [style.color]="router.url === '/Contacto' ? 'red' : ''">CONTACTO<mat-icon
+          style="font-size: 16pt; height: 15px; width: 18px">
+          {{
+          router.url === "/Contacto"
+          ? "keyboard_arrow_down"
+          : "keyboard_arrow_up"
+          }}
+        </mat-icon></a>
+    </div>
+  </div>
+</div>

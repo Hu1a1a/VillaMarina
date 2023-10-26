@@ -1,0 +1,32 @@
+<app-loading [isLoading]="isLoading"></app-loading>
+<div class="container">
+    <div class="row">
+        <h1>Villa Marina Admin Panel</h1>
+    </div>
+    <div class="row">
+        <mat-form-field>
+            <mat-label>User</mat-label>
+            <input matInput type="text" maxlength="48" [(ngModel)]="login">
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput type="password" maxlength="24" [(ngModel)]="password">
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <div class="col" style="text-align: center;color: red;" *ngIf="error">
+            <p>
+                Contraseña erronea!
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" style="text-align: center;">
+            <button mat-fab color="primary" (click)="Submit()">
+                <mat-icon>face</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

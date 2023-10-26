@@ -1,0 +1,17 @@
+.iconoLetra {
+  width: 15px;
+  height: 15px;
+}
+
+.contacto a {
+  color: #827370;
+}
+
+.header a {
+  color: black;
+  text-decoration: none;
+  font-weight: 700;
+}
+.col-xs-4.col-sm-4.col-md.col-lg{
+  padding: 0;
+}

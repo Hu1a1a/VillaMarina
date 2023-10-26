@@ -1,0 +1,204 @@
+<app-loading [isLoading]="isLoading"></app-loading>
+<div class="col" style="text-align: -webkit-center">
+  <div class="row">
+    <div style="height: 50px">
+      <h1>Reserva de estancia</h1>
+    </div>
+    <div style="height: 25px">
+      <h1></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-0 col-sm-0 col-md-2 col-lg-2"></div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8"
+      style="padding: 25px; box-shadow: 0 0 50px #0ef5e7; border-radius: 25px">
+      <div class="_mat-animation-noopable text-center">
+        <div class="calendar-header">
+          <div class="year-picker">
+            <span class="year-change" (click)="
+                CalendarYear =
+                  CalendarMonth > 0 ? CalendarYear : CalendarYear - 1;
+                CalendarMonth = CalendarMonth > 0 ? CalendarMonth - 1 : 11;
+                Calendar()
+              ">
+              <pre><</pre>
+            </span>
+            <span>{{ MonthNames[CalendarMonth] }}</span>
+            <span class="year-change" (click)="
+                CalendarYear =
+                  CalendarMonth < 11 ? CalendarYear : CalendarYear + 1;
+                CalendarMonth = CalendarMonth < 11 ? CalendarMonth + 1 : 0;
+                Calendar()
+              ">
+              <pre>></pre>
+            </span>
+          </div>
+          <div class="year-picker">
+            <span class="year-change" (click)="CalendarYear = CalendarYear - 1; Calendar()">
+              <pre><</pre>
+            </span>
+            <span>{{ CalendarYear }}</span>
+            <span class="year-change" (click)="CalendarYear = CalendarYear + 1; Calendar()">
+              <pre>></pre>
+            </span>
+          </div>
+        </div>
+        <div class="calendar-body">
+          <table style="width: 100%">
+            <thead>
+              <tr class="calendar-week-day">
+                <td>Dom.</td>
+                <td>Lun.</td>
+                <td>Mar.</td>
+                <td>Mié.</td>
+                <td>Jue.</td>
+                <td>Vie.</td>
+                <td>Sáb.</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="calendar-days">
+                <ng-container *ngFor="let item of CalendarDay">
+                  <td [style.fontWeight]="item[1] === CalendarMonth ? '700' : ''" [style.backgroundColor]="
+                      GetDay(item[2], item[1], item[0]) <=
+                        GetDay(SelectedYear, SelectedMonth, SelectedDay) &&
+                      GetDay(item[2], item[1], item[0]) >=
+                        GetDay(SelectedYear2, SelectedMonth2, SelectedDay2)
+                        ? 'blue'
+                        : ReservadoDay.includes(
+                            GetDay(item[2], item[1], item[0])
+                          ) ||
+                          GetDay(item[2], item[1], item[0]) <= minDay ||
+                          GetDay(item[2], item[1], item[0]) >= maxDay
+                        ? 'rgb(120 107 104 / 50%)'
+                        : PayingDaiy.includes(GetDay(item[2], item[1], item[0]))
+                        ? 'yellow'
+                        : ''
+                    " [style.color]="
+                      GetDay(item[2], item[1], item[0]) <=
+                        GetDay(SelectedYear, SelectedMonth, SelectedDay) &&
+                      GetDay(item[2], item[1], item[0]) >=
+                        GetDay(SelectedYear2, SelectedMonth2, SelectedDay2)
+                        ? 'white'
+                        : ''
+                    " [style.borderStartStartRadius.px]="
+                      GetDay(item[2], item[1], item[0]) ===
+                      GetDay(SelectedYear2, SelectedMonth2, SelectedDay2)
+                        ? 20
+                        : 0
+                    " [style.borderStartEndRadius.px]="
+                      GetDay(item[2], item[1], item[0]) ===
+                      GetDay(SelectedYear, SelectedMonth, SelectedDay)
+                        ? 20
+                        : 0
+                    " [style.borderEndEndRadius.px]="
+                      GetDay(item[2], item[1], item[0]) ===
+                      GetDay(SelectedYear, SelectedMonth, SelectedDay)
+                        ? 20
+                        : 0
+                    " [style.borderEndStartRadius.px]="
+                      GetDay(item[2], item[1], item[0]) ===
+                      GetDay(SelectedYear2, SelectedMonth2, SelectedDay2)
+                        ? 20
+                        : 0
+                    " (click)="SelectDay(item)">
+                    {{ item[0] }}
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col" style="padding: 25px;">
+        <ng-container *ngIf="ReservadoMensaje || ReservadoMensaje30">
+          <span *ngIf="ReservadoMensaje && !ReservadoMensaje30" style="color: red; font-weight: 500">
+            Fecha seleccionada no disponible!
+          </span>
+          <span *ngIf="!ReservadoMensaje && ReservadoMensaje30" style="color: red; font-weight: 500">
+            Fecha seleccionada no disponible!
+            <br />
+            Vuelva a ver la disponibilidad 30 minutos más tardes!
+          </span>
+          <div style="height: 25px"></div>
+        </ng-container>
+      </div>
+      <button mat-fab extended [disabled]="
+          !SelectedDay ||
+          !SelectedDay2 ||
+          GetDay(SelectedYear, SelectedMonth, SelectedDay) -
+            GetDay(SelectedYear2, SelectedMonth2, SelectedDay2) +
+            1 <=            config?.minDay        " (click)="CreatePay()" color="warn"
+        style="height: 50px; width: 175px; font-size: 12pt; font-weight: 600">
+        <mat-icon>event</mat-icon>Reservar
+      </button>
+
+      <ng-container *ngIf="PayError">
+        <div style="height: 25px"></div>
+        <span *ngIf="PayError" style="color: red; font-weight: 500; box-shadow: 0 0 50px #0ef5e7">
+          Reserva erronea, revisa los datos introducidos!
+        </span>
+      </ng-container>
+      <ng-container *ngIf="payUrl">
+        <div style="height: 25px"></div>
+        <a [href]="payUrl"> Pago pendiente de realizar.</a>&#160;
+        <i type="button" class="bi bi-backspace" (click)="CancelarPay()"></i>
+      </ng-container>
+      <ng-container *ngIf="
+          GetDay(SelectedYear, SelectedMonth, SelectedDay) -
+            GetDay(SelectedYear2, SelectedMonth2, SelectedDay2) +
+            1 <=
+            config?.minDay
+        ">
+        <div style="height: 25px"></div>
+        <span style="color: red"> Estancia mínima de {{config?.minDay || 7}} días! </span>
+      </ng-container>
+
+      <ng-container *ngIf="
+          SelectedDay &&
+          SelectedDay2 &&
+          GetDay(SelectedYear, SelectedMonth, SelectedDay) -
+            GetDay(SelectedYear2, SelectedMonth2, SelectedDay2) +
+            1 >
+            config?.minDay
+        ">
+        <div style="height: 25px"></div>
+        <span>
+          <strong> Importe total:</strong>
+          {{
+          GetDay(SelectedYear, SelectedMonth, SelectedDay) -
+          GetDay(SelectedYear2, SelectedMonth2, SelectedDay2) +
+          1
+          }}
+          días x {{config?.Price | number:'0.2-2'}} € =
+          {{(
+          (GetDay(SelectedYear, SelectedMonth, SelectedDay) -
+          GetDay(SelectedYear2, SelectedMonth2, SelectedDay2) +
+          1) *
+          config?.Price)
+          | number:'0.2-2'
+          }}
+          €
+        </span>
+        <br />
+        <span>
+          <strong> Check-in:</strong> Después de las 15:00h de
+          {{ ("00" + SelectedDay2).slice(-2) }}/{{
+          ("00" + SelectedMonth2).slice(-2)
+          }}/{{ SelectedYear2 }}
+        </span>
+        <br />
+        <span>
+          <strong> Check-out: </strong>Antes de las 12:00h de
+          {{ ("00" + SelectedDay).slice(-2) }}/{{
+          ("00" + SelectedMonth).slice(-2)
+          }}/{{ SelectedYear }}
+        </span>
+      </ng-container>
+    </div>
+    <div style="height: 25px"></div>
+    <a href="https://stripe.com/">
+      <img style="width: 250px" src="./assets/Imagen/stripe/powered2.png" />
+    </a>
+  </div>
+</div>

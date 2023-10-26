@@ -1,0 +1,99 @@
+<app-loading [isLoading]="isLoading"></app-loading>
+<div class="container">
+    <mat-tab-group animationDuration="1000ms">
+        <mat-tab label="Configuración">
+            <div class="container">
+                <div class="row">
+                    <mat-form-field>
+                        <mat-label> Precio diario: </mat-label>
+                        <input matInput [(ngModel)]="config!.Price" type="number" min=0>
+                        <span matTextSuffix>€</span>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label> Duración mínima de reserva: </mat-label>
+                        <input matInput [(ngModel)]="config!.minDay" type="number" min=0>
+                        <span matTextSuffix>día</span>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <button mat-raised-button color="primary" (click)="setConfig()">Modificar</button>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Reserva">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Telefono</td>
+                        <td>Correo</td>
+                        <td>Nombre</td>
+                        <td>Importe</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let item of Reserva;index as i">
+                        <ng-container *ngIf="i===0 || item.Striper!==Reserva[i-1].Striper">
+                            <tr style="border-top: 2px solid black;">
+                                <td colspan="100%">
+                                    <strong> Striper ID: </strong> {{item.Striper}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{item.Telf}}</td>
+                                <td>{{item.Email}}</td>
+                                <td>{{item.Name}}</td>
+                                <td>{{item.Importe | number :"0.2-2"}} €</td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="i===0 || item.Striper !== Reserva[i-1].Striper">
+                            <tr>
+                                <td colspan="50%"> <strong> Fecha de inicio: </strong>{{getDate(item.Date)}}</td>
+                            </tr>
+                        </ng-container>
+                        <ng-container
+                            *ngIf="i===Reserva.length - 1 || (i!==0 && item.Striper === Reserva[i-1].Striper && item.Striper !== Reserva[i+1].Striper)">
+                            <tr style="border-bottom: 2px solid black;">
+
+                                <td colspan="50%"> <strong> Fecha final: </strong>{{getDate(item.Date)}}</td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </tbody>
+            </table>
+        </mat-tab>
+        <mat-tab label="Paying">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Fecha de reserva bloqueada</td>
+                        <td>Fecha de expiración de reserva</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let item of Paying;index as i">
+                        <ng-container *ngIf="i===0 || item.Striper!==Paying[i-1].Striper">
+                            <tr>
+                                <td colspan="100%">
+                                    <strong> Striper ID: </strong> {{item.Striper}}
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <tr>
+                            <td>{{getDate(item.Date)}}</td>
+                            <td>{{getDateHour(item.ExpireDate,item.ExpireHour,item.ExpireMin)}} </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+<app-reserva></app-reserva>
+
+<div class="container" *ngIf="msg" style="color: red;">
+    <div class="row">
+        <div class="col text-center">
+            {{msg}}
+        </div>
+    </div>
+</div>
