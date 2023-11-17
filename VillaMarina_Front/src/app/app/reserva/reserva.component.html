@@ -3,7 +3,6 @@
   <div class="row">
     <div style="height: 50px">
       <h1>Reserva de estancia</h1>
-
     </div>
     <div>
       <h3 *ngIf="ConexionError" style="color: red;">
@@ -14,7 +13,7 @@
       <h1></h1>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="!ConexionError">
     <div class="col-xs-0 col-sm-0 col-md-2 col-lg-2"></div>
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8"
       style="padding: 25px; box-shadow: 0 0 50px #0ef5e7; border-radius: 25px">
@@ -41,11 +40,11 @@
           </div>
           <div class="year-picker">
             <span class="year-change" (click)="CalendarYear = CalendarYear - 1; Calendar()">
-              <pre><</pre>
+              <pre> < </pre>
             </span>
             <span>{{ CalendarYear }}</span>
             <span class="year-change" (click)="CalendarYear = CalendarYear + 1; Calendar()">
-              <pre>></pre>
+              <pre> > </pre>
             </span>
           </div>
         </div>
