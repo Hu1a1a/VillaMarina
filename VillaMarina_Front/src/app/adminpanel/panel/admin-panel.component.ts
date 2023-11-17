@@ -20,11 +20,7 @@ export class AdminPanelComponent implements OnInit {
   msg: string = '';
   Reserva = [];
   Paying = [];
-  config: { id: number; Price: number; minDay: number } = {
-    id: null,
-    Price: null,
-    minDay: null,
-  };
+  config: { id: number; Price: number; minDay: number } = { id: null, Price: null, minDay: null, };
   isLoading: boolean = false
 
   async ngOnInit() {
@@ -32,24 +28,20 @@ export class AdminPanelComponent implements OnInit {
     if (this.token) {
       const data = await this.Admin.getData();
       if (data) {
-        if (data.msg) {
-          this.msg = data.msg;
-        } else {
-          this.Reserva = data.Reserva.sort((a: any, b: any) =>
-            a.Striper >= b.Striper ? 1 : -1
-          ).sort((a: any, b: any) => (a.Date >= b.Date ? 1 : -1));
-          this.Paying = data.Paying.sort((a: any, b: any) =>
-            a.Striper >= b.Striper ? 1 : -1
-          )
+        if (data.msg) this.msg = data.msg;
+        else {
+          this.Reserva = data.Reserva
+            .sort((a: any, b: any) => a.Striper >= b.Striper ? 1 : -1)
+            .sort((a: any, b: any) => (a.Date >= b.Date ? 1 : -1));
+          this.Paying = data.Paying
+            .sort((a: any, b: any) => a.Striper >= b.Striper ? 1 : -1)
             .sort((a: any, b: any) => (a.ExpireMin >= b.ExpireMin ? 1 : -1))
             .sort((a: any, b: any) => (a.ExpireHour >= b.ExpireHour ? 1 : -1))
             .sort((a: any, b: any) => (a.ExpireDate >= b.ExpireDate ? 1 : -1));
           this.config = await this.api.getConfig();
         }
       }
-    } else {
-      this.router.navigate(['Panel/' + AdminPanel + '/Login']);
-    }
+    } else this.router.navigate(['Panel/' + AdminPanel + '/Login']);
     this.isLoading = false
   }
 

@@ -7,17 +7,12 @@ import { Component, OnChanges, Input, SimpleChanges } from "@angular/core";
 export class LoadingComponent implements OnChanges {
   @Input() isLoading!: boolean;
   Point = "..."
-  ngOnChanges(changes: SimpleChanges) {
+  
+  ngOnChanges() {
     if (this.isLoading === true) {
       const loading = setInterval(() => {
-        if (this.Point === ".....") {
-          this.Point = ""
-        } else {
-          this.Point += "."
-        }
-        if (this.isLoading === false) {
-          clearInterval(loading);
-        }
+        this.Point = this.Point === "....." ? "" : this.Point += "."
+        if (this.isLoading === false) clearInterval(loading);
       }, 500)
     }
   }

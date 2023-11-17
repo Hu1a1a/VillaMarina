@@ -12,8 +12,6 @@ export class CancelComponent implements OnInit {
   async ngOnInit() {
     this.payUrl = localStorage.getItem('payUrl');
     const Expire = await this.pay.getExpire(this.payUrl)
-    if (Expire) {
-      localStorage.removeItem('payUrl')
-    }
+    if (Expire) localStorage.removeItem('payUrl')
   }
 }

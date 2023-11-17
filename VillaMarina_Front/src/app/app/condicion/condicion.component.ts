@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './condicion.component.html',
   styleUrls: ['./condicion.component.css']
 })
-export class CondicionComponent {
-
-}
+export class CondicionComponent { }

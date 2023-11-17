@@ -3,6 +3,12 @@
   <div class="row">
     <div style="height: 50px">
       <h1>Reserva de estancia</h1>
+
+    </div>
+    <div>
+      <h3 *ngIf="ConexionError" style="color: red;">
+        Conexión errónea, refresque la pantalla.
+      </h3>
     </div>
     <div style="height: 25px">
       <h1></h1>

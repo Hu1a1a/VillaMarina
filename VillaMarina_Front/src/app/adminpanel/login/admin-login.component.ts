@@ -19,8 +19,8 @@ export class AdminLoginComponent implements OnInit {
   isLoading: boolean = false
   ngOnInit(): void {
     this.Admin.resetToken()
-
   }
+
   async Submit() {
     this.error = false
     this.isLoading = true
@@ -29,9 +29,7 @@ export class AdminLoginComponent implements OnInit {
       this.Admin.setToken(Token.Token)
       localStorage.setItem("Token", this.Admin.auth_token)
       this.router.navigate(["Panel/" + AdminPanel + '/Panel']);
-    } else {
-      this.error = true
-    }
+    } else this.error = true
     this.isLoading = false
   }
 }
