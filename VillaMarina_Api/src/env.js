@@ -1,12 +1,11 @@
 const mysql = require("mysql");
 
-//mysql for Google Cloud
-/*const con = mysql.createConnection({
-  host: "34.175.104.109",
-  user: "db",
-  password: "db",
-  database: "Reserva",
-});*/
+const con = mysql.createConnection({
+  host: "villamarina.mysql.database.azure.com",
+  user: "azure",
+  password: "Yang1234....",
+  database: "villamarina",
+});
 
 //mysql for localhost
 /*const con = mysql.createConnection({
