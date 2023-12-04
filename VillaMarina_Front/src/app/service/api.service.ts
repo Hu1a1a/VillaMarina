@@ -12,6 +12,7 @@ export class ApiService {
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
     Authorization: `Bearer ${this.auth_token?.authorisation?.token}`,
+    "referrerPolicy": "unsafe_url"
   });
 
   async getReserva(): Promise<any> {
