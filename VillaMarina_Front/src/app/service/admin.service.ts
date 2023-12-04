@@ -12,8 +12,6 @@ export class AdminService {
   public headers = new HttpHeaders({
     'Content-Type': 'application/json',
     Authorization: this.auth_token,
-    "referrerPolicy": "unsafe_url"
-
   });
 
   setToken(Token: string) {
@@ -21,7 +19,6 @@ export class AdminService {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       "Authorization": this.auth_token,
-      "referrerPolicy": "unsafe_url"
     });
   }
   resetToken() {
