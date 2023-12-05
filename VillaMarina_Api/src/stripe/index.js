@@ -36,11 +36,11 @@ router.post("/PaySession", async (req, res) => {
                             name: "Reserva estancia Villa Marina",
                             description: "Reserva de estancia de la fecha " + getDate(req.body.Inicial) + " a " + getDate(req.body.Final),
                             images: [
-                              "https://hu1a1a.github.io/VillaMarina_Front/assets/Imagen/Cabecera/Foto1.jpg",
-                              "https://hu1a1a.github.io/VillaMarina_Front/assets/Imagen/Cabecera/Foto2.png",
-                              "https://hu1a1a.github.io/VillaMarina_Front/assets/Imagen/CASA.png",
-                              "https://hu1a1a.github.io/VillaMarina_Front/assets/Imagen/DISPONIBILIDAD.png",
-                              "https://hu1a1a.github.io/VillaMarina_Front/assets/Imagen/UBICACION.png",
+                              "https://hu1a1a.github.io/VillaMarina/assets/Imagen/Cabecera/Foto1.jpg",
+                              "https://hu1a1a.github.io/VillaMarina/assets/Imagen/Cabecera/Foto2.png",
+                              "https://hu1a1a.github.io/VillaMarina/assets/Imagen/CASA.png",
+                              "https://hu1a1a.github.io/VillaMarina/assets/Imagen/DISPONIBILIDAD.png",
+                              "https://hu1a1a.github.io/VillaMarina/assets/Imagen/UBICACION.png",
                             ],
                           },
                         },
@@ -89,8 +89,13 @@ router.get("/Paying", (req, res) => {
   const ExpireDay = new Date(+new Date() + 30 * 60 * 1000);
   const ExpireDate = GetDay(ExpireDay.getFullYear(), ExpireDay.getMonth(), ExpireDay.getDate());
   const DELETE = `DELETE FROM Paying WHERE ExpireDate < "${ExpireDate}"`;
-  con.query(DELETE, (err) => (err ? res.send({ msg: "error" }) : null));
-  con.query(sqlPaying, (err, result) => (err ? res.send({ msg: "error" }) : res.json(result)));
+  con.query(DELETE, (err) => {
+    if (err) {
+      res.send();
+    } else {
+      con.query(sqlPaying, (err, result) => (err ? res.send() : res.json(result)));
+    }
+  });
 });
 
 router.post("/Check", async (req, res) => {
@@ -103,7 +108,7 @@ router.post("/Check", async (req, res) => {
         let date = [];
         con.query(sqlPaying, (err, result) => {
           if (err) {
-            res.send({ msg: "error" });
+            res.send();
           } else {
             for (const item of result) {
               if (item.Striper === Url) {

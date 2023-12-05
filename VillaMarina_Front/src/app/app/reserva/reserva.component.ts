@@ -67,16 +67,16 @@ export class ReservaComponent implements OnInit {
         this.SelectedMonth = this.Today.getMonth();
         this.SelectedYear2 = this.Today.getFullYear();
         this.SelectedMonth2 = this.Today.getMonth();
+        this.minDay = this.GetDay(this.Today.getFullYear(), this.Today.getMonth(), this.Today.getDate());
+        this.maxDay = this.minDay + 180;
         const Reserva = await this.api.getReserva();
         if (Reserva) {
           for (const item of Reserva) this.ReservadoDay.push(parseFloat(item.Date));
-          this.minDay = this.GetDay(this.Today.getFullYear(), this.Today.getMonth(), this.Today.getDate());
-          this.maxDay = this.minDay + 180;
           let Paying = await this.pay.getPaying();
           if (Paying) {
             this.CheckPaying(Paying);
-            setInterval(async () => {
-              Paying = await this.pay.getPaying();
+            setInterval(() => {
+              Paying = this.pay.getPaying();
               this.CheckPaying(Paying);
             }, 5 * 60 * 1000);
           }

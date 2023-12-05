@@ -25,7 +25,7 @@ export class AdminLoginComponent implements OnInit {
     this.error = false
     this.isLoading = true
     const Token = await this.Admin.postToken(this.login, this.password)
-    if (Token.Token) {
+    if (Token && Token.Token) {
       this.Admin.setToken(Token.Token)
       localStorage.setItem("Token", this.Admin.auth_token)
       this.router.navigate(["Panel/" + AdminPanel + '/Panel']);

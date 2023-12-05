@@ -58,8 +58,9 @@ export class AdminPanelComponent implements OnInit {
   }
 
   async setConfig() {
-    this.isLoading = false
-    await this.Admin.postConfig(this.config);
     this.isLoading = true
+    const data = await this.Admin.postConfig(this.config);
+    if (data && data.msg) this.msg = data.msg
+    this.isLoading = false
   }
 }
