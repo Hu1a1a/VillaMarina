@@ -2,12 +2,12 @@ const mysql = require("mysql");
 
 const fs = require("fs");
 const con = mysql.createConnection({
-  host: "villamarina.mysql.database.azure.com",
-  user: "azure",
+  host: "villamarinadb.mysql.database.azure.com",
+  user: "Azure",
   password: "Yang1234....",
   database: "villamarina",
   port: 3306,
-  ssl: { ca: fs.readFileSync("./crt.pem") },
+  ssl: { ca: fs.readFileSync("./crt/crt.pem") },
 });
 
 //mysql for localhost
