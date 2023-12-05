@@ -8,7 +8,6 @@ router.post("/PostToken", async (req, res) => {
       const token = buffer.toString("hex");
       const UPDATE = `UPDATE Token SET Token = "${token}" WHERE id = 0`;
       con.query(UPDATE, (err) => {
-        console.log(err);
         if (err) res.send();
         else {
           const SELECT = `SELECT * FROM Token`;
