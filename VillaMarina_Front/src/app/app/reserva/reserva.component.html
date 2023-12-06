@@ -21,20 +21,20 @@
         <div class="calendar-header">
           <div class="year-picker">
             <span class="year-change" (click)="
-                CalendarYear =
-                  CalendarMonth > 0 ? CalendarYear : CalendarYear - 1;
-                CalendarMonth = CalendarMonth > 0 ? CalendarMonth - 1 : 11;
-                Calendar()
-              ">
+CalendarYear =
+CalendarMonth > 0 ? CalendarYear : CalendarYear - 1;
+CalendarMonth = CalendarMonth > 0 ? CalendarMonth - 1 : 11;
+Calendar()
+">
               <pre><</pre>
             </span>
             <span>{{ MonthNames[CalendarMonth] }}</span>
             <span class="year-change" (click)="
-                CalendarYear =
-                  CalendarMonth < 11 ? CalendarYear : CalendarYear + 1;
-                CalendarMonth = CalendarMonth < 11 ? CalendarMonth + 1 : 0;
-                Calendar()
-              ">
+CalendarYear =
+CalendarMonth < 11 ? CalendarYear : CalendarYear + 1;
+CalendarMonth = CalendarMonth < 11 ? CalendarMonth + 1 : 0;
+Calendar()
+">
               <pre>></pre>
             </span>
           </div>
@@ -65,48 +65,48 @@
               <tr class="calendar-days">
                 <ng-container *ngFor="let item of CalendarDay">
                   <td [style.fontWeight]="item[1] === CalendarMonth ? '700' : ''" [style.backgroundColor]="
-                      GetDay(item[2], item[1], item[0]) <=
-                        GetDay(SelectedYear, SelectedMonth, SelectedDay) &&
-                      GetDay(item[2], item[1], item[0]) >=
-                        GetDay(SelectedYear2, SelectedMonth2, SelectedDay2)
-                        ? 'blue'
-                        : ReservadoDay.includes(
-                            GetDay(item[2], item[1], item[0])
-                          ) ||
-                          GetDay(item[2], item[1], item[0]) <= minDay ||
-                          GetDay(item[2], item[1], item[0]) >= maxDay
-                        ? 'rgb(120 107 104 / 50%)'
-                        : PayingDaiy.includes(GetDay(item[2], item[1], item[0]))
-                        ? 'yellow'
-                        : ''
-                    " [style.color]="
-                      GetDay(item[2], item[1], item[0]) <=
-                        GetDay(SelectedYear, SelectedMonth, SelectedDay) &&
-                      GetDay(item[2], item[1], item[0]) >=
-                        GetDay(SelectedYear2, SelectedMonth2, SelectedDay2)
-                        ? 'white'
-                        : ''
-                    " [style.borderStartStartRadius.px]="
-                      GetDay(item[2], item[1], item[0]) ===
-                      GetDay(SelectedYear2, SelectedMonth2, SelectedDay2)
-                        ? 20
-                        : 0
-                    " [style.borderStartEndRadius.px]="
-                      GetDay(item[2], item[1], item[0]) ===
-                      GetDay(SelectedYear, SelectedMonth, SelectedDay)
-                        ? 20
-                        : 0
-                    " [style.borderEndEndRadius.px]="
-                      GetDay(item[2], item[1], item[0]) ===
-                      GetDay(SelectedYear, SelectedMonth, SelectedDay)
-                        ? 20
-                        : 0
-                    " [style.borderEndStartRadius.px]="
-                      GetDay(item[2], item[1], item[0]) ===
-                      GetDay(SelectedYear2, SelectedMonth2, SelectedDay2)
-                        ? 20
-                        : 0
-                    " (click)="SelectDay(item)">
+GetDay(item[2], item[1], item[0]) <=
+GetDay(SelectedYear, SelectedMonth, SelectedDay) &&
+GetDay(item[2], item[1], item[0]) >=
+GetDay(SelectedYear2, SelectedMonth2, SelectedDay2)
+? 'blue'
+: ReservadoDay.includes(
+GetDay(item[2], item[1], item[0])
+) ||
+GetDay(item[2], item[1], item[0]) <= minDay ||
+GetDay(item[2], item[1], item[0]) >= maxDay
+? 'rgb(120 107 104 / 50%)'
+: PayingDaiy.includes(GetDay(item[2], item[1], item[0]))
+? 'yellow'
+: ''
+" [style.color]="
+GetDay(item[2], item[1], item[0]) <=
+GetDay(SelectedYear, SelectedMonth, SelectedDay) &&
+GetDay(item[2], item[1], item[0]) >=
+GetDay(SelectedYear2, SelectedMonth2, SelectedDay2)
+? 'white'
+: ''
+" [style.borderStartStartRadius.px]="
+GetDay(item[2], item[1], item[0]) ===
+GetDay(SelectedYear2, SelectedMonth2, SelectedDay2)
+? 20
+: 0
+" [style.borderStartEndRadius.px]="
+GetDay(item[2], item[1], item[0]) ===
+GetDay(SelectedYear, SelectedMonth, SelectedDay)
+? 20
+: 0
+" [style.borderEndEndRadius.px]="
+GetDay(item[2], item[1], item[0]) ===
+GetDay(SelectedYear, SelectedMonth, SelectedDay)
+? 20
+: 0
+" [style.borderEndStartRadius.px]="
+GetDay(item[2], item[1], item[0]) ===
+GetDay(SelectedYear2, SelectedMonth2, SelectedDay2)
+? 20
+: 0
+" (click)="SelectDay(item)">
                     {{ item[0] }}
                   </td>
                 </ng-container>
@@ -129,13 +129,12 @@
         </ng-container>
       </div>
       <button mat-fab extended [disabled]="
-          !SelectedDay ||
-          !SelectedDay2 ||
-          GetDay(SelectedYear, SelectedMonth, SelectedDay) -
-            GetDay(SelectedYear2, SelectedMonth2, SelectedDay2) +
-            1 <=            config?.minDay        " (click)="CreatePay()" color="warn"
+!SelectedDay ||
+!SelectedDay2 ||
+GetDay(SelectedYear, SelectedMonth, SelectedDay) -
+GetDay(SelectedYear2, SelectedMonth2, SelectedDay2) <config?.minDay-1" (click)="CreatePay()" color="warn"
         style="height: 50px; width: 175px; font-size: 12pt; font-weight: 600">
-        <mat-icon>event</mat-icon>Reservar
+        <mat-icon>event$</mat-icon>Reservar
       </button>
 
       <ng-container *ngIf="PayError">
@@ -150,23 +149,21 @@
         <i type="button" class="bi bi-backspace" (click)="CancelarPay()"></i>
       </ng-container>
       <ng-container *ngIf="
-          GetDay(SelectedYear, SelectedMonth, SelectedDay) -
-            GetDay(SelectedYear2, SelectedMonth2, SelectedDay2) +
-            1 <=
-            config?.minDay
-        ">
+GetDay(SelectedYear, SelectedMonth, SelectedDay) -
+GetDay(SelectedYear2, SelectedMonth2, SelectedDay2) <
+config?.minDay-1
+">
         <div style="height: 25px"></div>
         <span style="color: red"> Estancia mínima de {{config?.minDay || 7}} días! </span>
       </ng-container>
 
       <ng-container *ngIf="
-          SelectedDay &&
-          SelectedDay2 &&
-          GetDay(SelectedYear, SelectedMonth, SelectedDay) -
-            GetDay(SelectedYear2, SelectedMonth2, SelectedDay2) +
-            1 >
-            config?.minDay
-        ">
+SelectedDay &&
+SelectedDay2 &&
+GetDay(SelectedYear, SelectedMonth, SelectedDay) -
+GetDay(SelectedYear2, SelectedMonth2, SelectedDay2) >=
+config?.minDay-1
+">
         <div style="height: 25px"></div>
         <span>
           <strong> Importe total:</strong>
