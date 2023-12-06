@@ -20,7 +20,7 @@ const con = mysql.createConnection({
 });*/
 
 const DOMAIN = "https://hu1a1a.github.io/VillaMarina/#/";
-//const DOMAIN = "http://localhost:4200/VillaMarina_Front/";
+//const DOMAIN = "http://localhost:4200/VillaMarina/#/";
 
 const ADMIN = "ADMIN";
 const PASSWORD = "ADMIN";

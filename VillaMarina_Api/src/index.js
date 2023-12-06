@@ -24,7 +24,7 @@ app.use(
   "/Pago/PaySession",
   rateLimit({
     windowMs: 30 * 60 * 1000,
-    max: 5,
+    max: 500,
     headers: true,
   })
 );

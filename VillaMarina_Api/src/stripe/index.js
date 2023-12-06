@@ -10,21 +10,17 @@ const { Chequeo, GetDay, getDate } = require("./function");
 
 router.post("/PaySession", async (req, res) => {
   con.query(sqlReserva, async (err, iReserva) => {
-    if (err) {
-      res.send({ msg: "error" });
-    } else {
+    if (err) res.send({ msg: "SQL Reserva error" });
+    else {
       con.query(sqlPaying, async (err, iPaying) => {
-        if (err) {
-          res.send({ msg: "error" });
-        } else {
+        if (err) res.send({ msg: "SQL Paying error" });
+        else {
           con.query(sqlConfig, async (err, iConfig) => {
-            if (err) {
-              res.send({ msg: "error" });
-            } else {
+            if (err) res.send({ msg: "SQL Config error" });
+            else {
               const statError = Chequeo(req.body, iReserva, iPaying, iConfig[0]);
-              if (statError) {
-                return res.json({ Error: statError });
-              } else {
+              if (statError) return res.json({ Error: statError });
+              else {
                 try {
                   const session = await stripe.checkout.sessions.create({
                     line_items: [
@@ -33,7 +29,7 @@ router.post("/PaySession", async (req, res) => {
                           currency: "eur",
                           unit_amount: iConfig[0].Price * 100,
                           product_data: {
-                            name: "Reserva estancia Villa Marina",
+                            name: "Reserva estancia en Villa Marina Ampolla",
                             description: "Reserva de estancia de la fecha " + getDate(req.body.Inicial) + " a " + getDate(req.body.Final),
                             images: [
                               "https://hu1a1a.github.io/VillaMarina/assets/Imagen/Cabecera/Foto1.jpg",
@@ -47,34 +43,25 @@ router.post("/PaySession", async (req, res) => {
                         quantity: req.body.Final - req.body.Inicial + 1,
                       },
                     ],
-                    phone_number_collection: {
-                      enabled: true,
-                    },
-                    invoice_creation: {
-                      enabled: true,
-                    },
+                    phone_number_collection: { enabled: true },
+                    invoice_creation: { enabled: true },
                     mode: "payment",
                     success_url: `${DOMAIN}Pago/Success`,
                     cancel_url: `${DOMAIN}Pago/Cancel`,
-                    consent_collection: {
-                      terms_of_service: "required",
-                    },
+                    consent_collection: { terms_of_service: "required" },
                     expires_at: Math.floor(new Date().getTime() / 1000 + 32 * 60),
                   });
                   const ExpireDay = new Date(+new Date() + 32 * 60 * 1000);
                   const ExpireDate = GetDay(ExpireDay.getFullYear(), ExpireDay.getMonth(), ExpireDay.getDate());
                   let sqlString = "";
                   for (var i = req.body.Inicial; i <= req.body.Final; i++) {
-                    sqlString =
-                      sqlString +
-                      `,(${i},${ExpireDate},${ExpireDay.getHours()},${ExpireDay.getMinutes()},"${
-                        session.url.toString().split("/pay/")[1].split("#")[0]
-                      }")`;
+                    sqlString += `,(${i}, ${ExpireDate}, ${ExpireDay.getHours()}, ${ExpireDay.getMinutes()}, 
+                    "${session.url.toString().split("/pay/")[1].split("#")[0]}")`;
                   }
-                  if (sqlString) con.query("INSERT INTO Paying VALUES " + sqlString.replace(",", ""), () => null);
+                  if (sqlString) con.query("INSERT INTO Paying VALUES " + sqlString.replace(",", ""));
                   res.json({ url: session.url });
                 } catch {
-                  res.send({ msg: "error" });
+                  res.send({ msg: "Stripe error" });
                 }
               }
             }
@@ -90,11 +77,8 @@ router.get("/Paying", (req, res) => {
   const ExpireDate = GetDay(ExpireDay.getFullYear(), ExpireDay.getMonth(), ExpireDay.getDate());
   const DELETE = `DELETE FROM Paying WHERE ExpireDate < "${ExpireDate}"`;
   con.query(DELETE, (err) => {
-    if (err) {
-      res.send();
-    } else {
-      con.query(sqlPaying, (err, result) => (err ? res.send() : res.json(result)));
-    }
+    if (err) res.send();
+    else con.query(sqlPaying, (err, result) => (err ? res.send() : res.json(result)));
   });
 });
 
@@ -107,28 +91,27 @@ router.post("/Check", async (req, res) => {
         let sqlString = "";
         let date = [];
         con.query(sqlPaying, (err, result) => {
-          if (err) {
-            res.send();
-          } else {
+          if (err) res.send();
+          else {
             for (const item of result) {
               if (item.Striper === Url) {
-                sqlString =
-                  sqlString +
-                  `,(${item.Date},"${session.customer_details.phone}","${session.customer_details.email}","${
-                    session.customer_details.name
-                  }","${Url}","${session.amount_total / 100}")`;
+                sqlString += `,(${item.Date}, "${session.customer_details.phone}", "${session.customer_details.email}", 
+                "${session.customer_details.name}", "${Url}", "${session.amount_total / 100}")`;
                 date.push(item.Date);
               }
             }
             if (sqlString) {
-              con.query(`INSERT INTO Reserva VALUES ${sqlString.replace(",", "")}`, () =>
-                con.query(`DELETE FROM Paying WHERE Striper = "${Url}"`, () =>
-                  con.query(
-                    `DELETE FROM Paying WHERE ExpireDate < ${GetDay(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())}`,
-                    () => null
-                  )
-                )
-              );
+              con.query(`INSERT INTO Reserva VALUES ${sqlString.replace(",", "")}`, (err) => {
+                if (!err) {
+                  con.query(`DELETE FROM Paying WHERE Striper = "${Url}"`, (err) => {
+                    if (!err) {
+                      con.query(
+                        `DELETE FROM Paying WHERE ExpireDate < ${GetDay(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())}`
+                      );
+                    }
+                  });
+                }
+              });
             }
             res.json({
               mensaje: "realizado!",

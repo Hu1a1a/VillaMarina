@@ -1,8 +1,9 @@
 const MonthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-let monthday;
+var monthday;
 function GetDay(year, month, day) {
   if (day) {
-    for (let i = 0, monthday = 0; i < month; i++) monthday = monthday + MonthDays[i];
+    monthday = 0;
+    for (let i = 0; i < month; i++) monthday = monthday + MonthDays[i];
     return Math.round((year - 1900) * 365 + (year - 1900) / 4 + monthday + day - 2);
   }
   return 0;
