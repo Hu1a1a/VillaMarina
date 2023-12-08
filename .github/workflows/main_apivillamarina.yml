@@ -59,4 +59,4 @@ jobs:
           app-name: 'ApiVillaMarina'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DEAF68A08F144EFBB9B659352A4CA2B4 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_715D11FD1EC5461E96866B554580A119 }}
