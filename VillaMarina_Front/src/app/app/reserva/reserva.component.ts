@@ -127,22 +127,19 @@ export class ReservaComponent implements OnInit {
     );
     this.ReservadoMensaje = false;
     this.ReservadoMensaje30 = false;
-    for (const item of this.ReservadoDay) {
-      if ((InitialDay <= item && FinalDay >= item) || (InitialDay >= item && FinalDay <= item)) {
-        this.SelectedDay = null;
-        this.SelectedDay2 = null;
-        this.ReservadoMensaje = true;
-        break;
-      }
+    for (const item of this.ReservadoDay) if ((InitialDay <= item && FinalDay >= item) || (InitialDay >= item && FinalDay <= item)) {
+      this.SelectedDay = null;
+      this.SelectedDay2 = null;
+      this.ReservadoMensaje = true;
+      break;
     }
-    for (const item of this.PayingDaiy) {
-      if ((InitialDay <= item && FinalDay >= item) || (InitialDay >= item && FinalDay <= item)) {
-        this.SelectedDay = null;
-        this.SelectedDay2 = null;
-        this.ReservadoMensaje30 = true;
-        break;
-      }
+    for (const item of this.PayingDaiy) if ((InitialDay <= item && FinalDay >= item) || (InitialDay >= item && FinalDay <= item)) {
+      this.SelectedDay = null;
+      this.SelectedDay2 = null;
+      this.ReservadoMensaje30 = true;
+      break;
     }
+
     if (InitialDay <= this.minDay || FinalDay <= this.minDay || InitialDay >= this.maxDay || FinalDay >= this.maxDay) {
       this.SelectedDay = null;
       this.SelectedDay2 = null;
@@ -163,8 +160,9 @@ export class ReservaComponent implements OnInit {
   }
 
   GetDay(year: number, month: number, day: number | null): number {
+    let monthday = 0
     if (day) {
-      for (var i = 0, monthday = 0; i < month; i++)  monthday = monthday + this.MonthDays[i];
+      for (var i = 0; i < month; i++)  monthday += +this.MonthDays[i];
       return Math.round((year - 1900) * 365 + (year - 1900) / 4 + monthday + day - 2);
     }
     return 0;
