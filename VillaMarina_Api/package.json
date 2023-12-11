@@ -6,6 +6,7 @@
     "node": "18.x.x"
   },
   "scripts": {
+    "linux": "nohup sudo forever src/index.js &",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js"
   },
