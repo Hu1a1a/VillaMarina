@@ -8,7 +8,6 @@ router.post("/PostToken", async (req, res) => {
       const token = buffer.toString("hex");
       const UPDATE = `UPDATE Token SET Token = "${token}" WHERE id = 0`;
       con.query(UPDATE, (err) => {
-        console.log(err);
         if (err) res.send();
         else {
           const SELECT = `SELECT * FROM Token`;
@@ -57,7 +56,7 @@ router.get("/Reset", (req, res) => {
     con.query(Reserva_Create, (err) => null);
 
     const Paying_Drop = "DROP TABLE Paying";
-    const Paying_Create = "CREATE TABLE Paying (Date INT,ExpireDate INT,ExpireHour INT,ExpireMin INT, Striper VARCHAR(255))";
+    const Paying_Create = "CREATE TABLE Paying (Date INT, ExpireDate INT, ExpireHour INT, ExpireMin INT, Striper VARCHAR(255))";
     con.query(Paying_Drop, (err) => null);
     con.query(Paying_Create, (err) => null);
 

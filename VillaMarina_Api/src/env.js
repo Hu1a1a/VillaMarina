@@ -2,12 +2,12 @@ const mysql = require("mysql");
 
 const fs = require("fs");
 const con = mysql.createConnection({
-  host: "villamarina.mysql.database.azure.com",
-  user: "azure",
+  host: "villamarinadb.mysql.database.azure.com",
+  user: "Azure",
   password: "Yang1234....",
   database: "villamarina",
   port: 3306,
-  ssl: { ca: fs.readFileSync("./crt.pem") },
+  ssl: { ca: fs.readFileSync("./crt/crt.pem") },
 });
 
 //mysql for localhost
@@ -20,7 +20,7 @@ const con = mysql.createConnection({
 });*/
 
 const DOMAIN = "https://hu1a1a.github.io/VillaMarina/#/";
-//const DOMAIN = "http://localhost:4200/VillaMarina_Front/";
+//const DOMAIN = "http://localhost:4200/VillaMarina/#/";
 
 const ADMIN = "ADMIN";
 const PASSWORD = "ADMIN";

@@ -16,7 +16,6 @@ export class SuccessComponent {
   async ngOnInit() {
     this.payUrl = localStorage.getItem('payUrl');
     this.payStatus = await this.pay.getCheck(this.payUrl)
-    console.log(this.payStatus)
     if (this.payStatus.date) {
       this.initialDay = new Date(new Date(Date.UTC(1900, 0, 1) + this.payStatus.date[0] * 24 * 60 * 60 * 1000));
       this.finalDay = new Date(new Date(Date.UTC(1900, 0, 1) + this.payStatus.date[this.payStatus.date.length - 1] * 24 * 60 * 60 * 1000));

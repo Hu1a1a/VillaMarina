@@ -160,7 +160,6 @@ export class ReservaComponent implements OnInit {
       this.SelectedMonth2 = month;
       this.SelectedYear2 = year;
     } else this.FirstClick = !this.FirstClick;
-
   }
 
   GetDay(year: number, month: number, day: number | null): number {
